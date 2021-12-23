@@ -1,0 +1,58 @@
+@startuml
+
+skinparam PackageMargin 20
+
+skinparam component {
+  BorderColor black
+  BackgroundColor white
+  Padding 400
+  Margin 400
+
+}
+
+skinparam note {
+  BorderColor black
+  BackgroundColor lightyellow
+}
+
+component Create-project-app {
+  package "/src" {
+    artifact "/..." as SrcPath
+  }
+
+  package "/node_modules" {
+    artifact "/..." as SecondArtifact
+  }
+
+  package "/public/..." {
+    note "/manifest.json" as ManifestNote
+    note "/favicon.ico" as FaviconNote
+    note "/index.html" as IndexNote
+  }
+}
+
+cloud {
+  card "localhost:3000" {
+    note "/main.chunk.js" as MainChunk
+    note "/vendor~main.chunk.js" as VendorMainChunk
+    note "/manifest.json" as ManifestCloud
+    note "/favicon.ico" as FaviconCloud
+
+    note "/bundle.js" as BundleCloud
+    artifact #white "/index.html" as IndexCloud
+
+    MainChunk --> IndexCloud
+    VendorMainChunk --> IndexCloud
+    ManifestCloud --> IndexCloud
+    FaviconCloud --> IndexCloud
+    BundleCloud -> IndexCloud
+  }
+}
+
+SrcPath ---> MainChunk
+SecondArtifact ---> VendorMainChunk
+ManifestNote ---> ManifestCloud
+FaviconNote ---> FaviconCloud
+IndexNote ---> IndexCloud
+
+@enduml

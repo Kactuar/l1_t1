@@ -45,7 +45,7 @@ function Alarm(pros) {
 
 ~~Text~~
 
-![picture](src)
+![Схема](./plantuml.svg)
 
 |Header 1 | Header 2|
 |:-------- |:--------:|
